@@ -1,0 +1,29 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>icons/thin-0071_document_file_paper.png</file>
+        <file>icons/thin-0002_write_pencil_new_edit.png</file>
+        <file>icons/thin-0056_bin_trash_recycle_delete_garbage_empty.png</file>
+        <file>icons/thin-0085_file_search_find_replace_zoom_view.png</file>
+        <file>icons/thin-0086_import_file_load.png</file>
+        <file>icons/thin-0087_export_file.png</file>
+        <file>icons/thin-0151_plus_add_new.png</file>
+        <file>icons/thin-0152_minus_delete_remove.png</file>
+        <file>icons/thin-0118_folder_open.png</file>
+        <file>icons/thin-0121_download_file.png</file>
+        <file>icons/thin-0122_download_file_computer_drive.png</file>
+        <file>icons/thin-0109_search_find_files_folder.png</file>
+        <file>icons/thin-0110_folder.png</file>
+        <file>icons/thin-0111_folder_files_documents.png</file>
+        <file>icons/thin-0336_disc_floppy_save_software.png</file>
+        <file>icons/thin-0101_notes_text_notebook.png</file>
+        <file>icons/thin-0001_compose_write_pencil_new.png</file>
+        <file>icons/thin-0021_calendar_month_day_planner.png</file>
+        <file>icons/thin-0246_text_font_size_smaller.png</file>
+        <file>icons/thin-0247_text_font_size_larger.png</file>
+        <file>icons/thin-0572_down.png</file>
+        <file>icons/thin-0573_up.png</file>
+        <file>icons/thin-0041_filter_funnel.png</file>
+        <file>icons/thin-0060_error_warning_danger_stop_delete_exit.png</file>
+        <file>icons/thin-0041_filter_funnel_active.png</file>
+    </qresource>
+</RCC>

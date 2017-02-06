@@ -21,8 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionFind->setEnabled(false);
     sortorder_ = SortOrder::AscendingOrder;
     categoryList_ << "Vorspeise" << "Hauptgericht" << "Suppe" << "Nachtisch" << "Brot" << "Kuchen";
-
     filter_ = new QString;
+    ui->toolBar->hide();
 }
 
 MainWindow::~MainWindow()

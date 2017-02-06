@@ -25,6 +25,11 @@ Recipe &Recipe::operator=(const Recipe &other)
     return *this;
 }
 
+Recipe::~Recipe()
+{
+
+}
+
 //Recipe::Recipe(Recipe other)
 //{
 //    titel = other.getTitel();

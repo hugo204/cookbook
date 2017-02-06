@@ -65,7 +65,7 @@ void Recipe_input::on_buttonBox_accepted()
                 ingredientsToDelete.append(item);
             }
         }
-        mainwindow->delete_ingredient(ingredientsToDelete, recipe_);
+        mainwindow->delete_recipe_from_ingredient(ingredientsToDelete, recipe_);
     }
     qDebug() << "#3";
     // find the ingredients which were added by the user
@@ -75,12 +75,13 @@ void Recipe_input::on_buttonBox_accepted()
             newIngredients.append(item);
         }
     }
-    mainwindow->add_ingredient(newIngredients, recipe_);
+    mainwindow->add_recipe_to_ingredient(newIngredients, recipe_);
     qDebug() << "#4";
     recipe_->setGuide(ui->plainTextEdit->toPlainText());
     recipe_->setTitel(ui->lineEdit->text());
     recipe_->setIngredients(model_->stringList());
     recipe_->setCategory(ui->comboBox->currentText());
+    qDebug() << "#5";
     // update ingredients
 }
 

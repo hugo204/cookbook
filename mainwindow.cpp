@@ -75,7 +75,7 @@ bool MainWindow::titel_exists(QString newTitel, Recipe * recipe)
     return false;
 }
 
-void MainWindow::add_ingredient(QStringList newIngredients, Recipe * recipe) {
+void MainWindow::add_recipe_to_ingredient(QStringList newIngredients, Recipe * recipe) {
     QStringListIterator i(newIngredients);
     while(i.hasNext()) {
         if(i.peekNext().simplified() == "") {
@@ -95,7 +95,7 @@ void MainWindow::add_ingredient(QStringList newIngredients, Recipe * recipe) {
     }
 }
 
-void MainWindow::delete_ingredient(QStringList deletedIngredients, Recipe * recipe ) {
+void MainWindow::delete_recipe_from_ingredient(QStringList deletedIngredients, Recipe * recipe ) {
     QStringListIterator i(deletedIngredients);
     while(i.hasNext()) {
         if(ingredients_.contains(i.peekNext())) {
@@ -163,6 +163,7 @@ void MainWindow::on_delete_pushButton_clicked()
                                   QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
     if (reply == QMessageBox::Yes) {
         qDebug() << "items removed: ";
+        MainWindow::delete_recipe_from_ingredient(cookbook_.take(current_item->text())->getIngredients(), cookbook_.take(current_item->text()));
         delete cookbook_.take(current_item->text());
         ui->listWidget->takeItem(ui->listWidget->row(current_item));
         ui->statusBar->showMessage(current_item->text() + " " + tr("deleted"), 10000);
@@ -177,41 +178,30 @@ void MainWindow::on_delete_pushButton_clicked()
 
 void MainWindow::on_edit_pushButton_clicked()
 {
-    // edit item
-    QListWidgetItem *current_item = ui->listWidget->currentItem();
-    if(current_item == NULL) {
-        return;
-    }
-    Recipe *recipe = cookbook_.value(current_item->text());
-    Recipe_input *recipe_input = new Recipe_input(this, recipe);
-    insert_edited_recipe(recipe_input, recipe);
-    ui->listWidget->setFocus();
-    delete recipe_input;
+    //edit_item
+    edit_recipe();
 }
 
 void MainWindow::on_listWidget_doubleClicked(const QModelIndex &index)
 {
-    // double click on item
-    QListWidgetItem *current_item = ui->listWidget->currentItem();
-    if(current_item == NULL) {
-        return;
-    }
-    Recipe *recipe = cookbook_.value(current_item->text());
-    Recipe_input *recipe_input = new Recipe_input(this, recipe);
-    insert_edited_recipe(recipe_input, recipe);
-    ui->listWidget->setFocus();
-    delete recipe_input;
+    //edit_item
+    edit_recipe();
 }
 
-void MainWindow::insert_edited_recipe(Recipe_input *recipe_input, Recipe *recipe) {
+void MainWindow::edit_recipe(Recipe * recipe) {
     QListWidgetItem *current_item = ui->listWidget->currentItem();
     if(current_item == NULL) {
         return;
     }
-    Recipe *old_recipe = new Recipe;
-    *old_recipe = *recipe;
+    if(recipe == NULL) {
+        qDebug() << "a1";
+        recipe = cookbook_.value(current_item->text());
+    }
+    Recipe_input *recipe_input = new Recipe_input(this, recipe);
+    Recipe *recipe_copy = new Recipe;
+    *recipe_copy = *recipe;
     if(recipe_input->exec() == QDialog::Accepted) {
-        cookbook_.take(current_item->text());
+        cookbook_.take(recipe_copy->getTitel());
         cookbook_.insert(recipe->getTitel(), recipe);
         current_item->setText(recipe->getTitel());
         MainWindow::control_toolbar(MainWindow::item_edit);
@@ -219,14 +209,16 @@ void MainWindow::insert_edited_recipe(Recipe_input *recipe_input, Recipe *recipe
         MainWindow::sort_cookbook();
     }
     else {
-        recipe = old_recipe;
+        recipe = recipe_copy;
     }
-    delete old_recipe;
+    ui->listWidget->setFocus();
+    delete recipe_input;
+    delete recipe_copy;
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    // show
+    //show
     QHashIterator<QString, Ingredient *> i(ingredients_);
     while(i.hasNext()) {
         i.next();
@@ -270,7 +262,7 @@ void MainWindow::on_actionNew_triggered()
 
 bool MainWindow::on_actionOpen_triggered()
 {
-    // open
+    //open
     MainWindow::on_actionNew_triggered();
     ui->statusBar->showMessage(tr(""), 1);
     this->setWindowTitle("");
@@ -310,7 +302,7 @@ bool MainWindow::on_actionOpen_triggered()
         Recipe * newRecipe = new Recipe(ingredients, titel, guide, category);
         cookbook_.insert(titel, newRecipe);
         ui->listWidget->insertItem(cookbook_.count(), titel);
-        MainWindow::add_ingredient(newRecipe->getIngredients(), newRecipe);
+        MainWindow::add_recipe_to_ingredient(newRecipe->getIngredients(), newRecipe);
     }
     this->setWindowTitle(fileName_);
     ui->statusBar->showMessage(tr("document opened"), 10000);
@@ -343,6 +335,7 @@ bool MainWindow::on_actionSave_as_triggered()
 
 bool MainWindow::save_cookbook()
 {
+    //save
     if(fileName_.isEmpty()) {
         fileName_ = QFileDialog::getSaveFileName(this,
                                                 tr("Save Cookbook"), "",
@@ -411,14 +404,11 @@ void MainWindow::on_actionFind_triggered()
             // TODO: Error handling
         }
         Recipe *recipe = cookbook_.value(text);
-        Recipe_input *recipe_input = new Recipe_input(this, recipe);
-        MainWindow::insert_edited_recipe(recipe_input, recipe);
-        delete recipe_input;
+        MainWindow::edit_recipe(recipe);
     }
     else {
 
     }
-    ui->listWidget->currentItem()->setSelected(true);
 }
 
 void MainWindow::on_pushButton_2_clicked()

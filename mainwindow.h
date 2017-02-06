@@ -24,8 +24,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     bool titel_exists(QString, Recipe *recipe = 0);
-    void add_ingredient(QStringList newIngredients, Recipe *recipe);
-    void delete_ingredient(QStringList deletedIngredients, Recipe *recipe);
+    void add_recipe_to_ingredient(QStringList newIngredients, Recipe *recipe);
+    void delete_recipe_from_ingredient(QStringList deletedIngredients, Recipe *recipe);
     bool add_category(QString const category);
     QStringList get_categoryList();
 
@@ -68,7 +68,7 @@ private:
         document_load
     };
 
-    void insert_edited_recipe(Recipe_input *recipe_input, Recipe *recipe);
+    void edit_recipe(Recipe *recipe = 0);
     void control_toolbar(action actionPerformed);
     bool save_cookbook();
     void sort_cookbook();

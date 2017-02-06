@@ -13,6 +13,7 @@ public:
     Recipe();
     Recipe(QStringList ingredients_, QString titel_ = "", QString guide_ = "", QString category_ = "Hauptgericht");
     Recipe &operator=(const Recipe &other);
+   ~Recipe();
 //    Recipe(const Recipe &other);
 
     QString getTitel() const;

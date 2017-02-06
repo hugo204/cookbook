@@ -11,7 +11,7 @@ class Recipe : public QObject
 
 public:
     Recipe();
-    Recipe(QStringList ingredients, QString titel = "", QString guide = "", QString category = "Hauptgericht");
+    Recipe(QStringList ingredients_, QString titel_ = "", QString guide_ = "", QString category_ = "Hauptgericht");
     Recipe &operator=(const Recipe &other);
 //    Recipe(const Recipe &other);
 
@@ -36,12 +36,12 @@ public:
     void setStars(int value);
 
 private:
-    QString titel;
-    QStringList ingredients;
-    QString guide;
-    QString category;
-    float cost;
-    int stars;
+    QString titel_;
+    QStringList ingredients_;
+    QString guide_;
+    QString category_;
+    float cost_;
+    int stars_;
 };
 
 #endif // RECIPE_H

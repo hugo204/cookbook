@@ -31,7 +31,6 @@ public:
 
 private slots:
     void on_add_pushButton_clicked();
-    //void process_input_from_dish_input_form(int);
     void on_delete_pushButton_clicked();
     bool on_actionOpen_triggered();
     bool on_actionSave_triggered();
@@ -46,21 +45,20 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QHash<QString, Recipe *> cookbook;
-    QHash<QString, Ingredient *> ingredients;
-    QStringList categoryList;
-    QString dish;
-    QString fileName;
-    QString *filter;
-    int cost;
-    QIcon * sortOrder_des_icon;
-    QIcon * sortOrder_asc_icon;
-    QIcon * filter_activated_icon;
-    QIcon * filter_deactivated_icon;
+    QHash<QString, Recipe *> cookbook_;
+    QHash<QString, Ingredient *> ingredients_;
+    QStringList categoryList_;
+    QString dish_;
+    QString fileName_;
+    QString *filter_;
+    QIcon * sortOrder_des_icon_;
+    QIcon * sortOrder_asc_icon_;
+    QIcon * filter_activated_icon_;
+    QIcon * filter_deactivated_icon_;
     enum SortOrder {
         AscendingOrder,
         DescendingOrder
-    } sortorder;
+    } sortorder_;
     enum action {
         item_new,
         item_edit,
@@ -71,11 +69,11 @@ private:
     };
 
     void insert_edited_recipe(Recipe_input *recipe_input, Recipe *recipe);
-    void controlToolbar(action actionPerformed);
-    bool saveCookbook();
-    void sortCookbook();
-    void clearFilter();
-    void applyFilter();
+    void control_toolbar(action actionPerformed);
+    bool save_cookbook();
+    void sort_cookbook();
+    void clear_filter();
+    void apply_filter();
 };
 
 #endif // MAINWINDOW_H

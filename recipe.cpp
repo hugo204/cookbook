@@ -2,25 +2,27 @@
 
 Recipe::Recipe(QStringList ingredients, QString titel, QString guide, QString category)
 {
-    this->titel = titel;
-    this->guide = guide;
+    titel_ = titel;
+    guide_ = guide;
     setIngredients(ingredients);
-    this->category = category;
+    category_ = category;
 }
 
 Recipe::Recipe()
 {
-    this->category = "Hauptgericht";
+    this->category_ = "Hauptgericht";
 }
 
 Recipe &Recipe::operator=(const Recipe &other)
 {
-    titel = other.getTitel();
-    ingredients = other.getIngredients();
-    guide = other.getGuide();
-    category = other.getCategory();
-    cost = other.getCost();
-    stars = other.getStars();
+    titel_ = other.getTitel();
+    ingredients_ = other.getIngredients();
+    guide_ = other.getGuide();
+    category_ = other.getCategory();
+    cost_ = other.getCost();
+    stars_ = other.getStars();
+
+    return *this;
 }
 
 //Recipe::Recipe(Recipe other)
@@ -35,28 +37,28 @@ Recipe &Recipe::operator=(const Recipe &other)
 
 QString Recipe::getTitel() const
 {
-    return titel;
+    return titel_;
 }
 
 void Recipe::setTitel(const QString &value)
 {
-    titel = value.simplified();
+    titel_ = value.simplified();
 }
 
 QStringList Recipe::getIngredients() const
 {
-    return ingredients;
+    return ingredients_;
 }
 
 void Recipe::setIngredients(const QStringList &value)
 {
-    ingredients.clear();
+    ingredients_.clear();
     if(value.isEmpty()) {
         return;
     }
     foreach(QString item, value) {
         if(!item.simplified().isEmpty()){
-            ingredients.append(item.simplified());
+            ingredients_.append(item.simplified());
         }
     }
     // TODO: calculate price
@@ -64,37 +66,37 @@ void Recipe::setIngredients(const QStringList &value)
 
 QString Recipe::getGuide() const
 {
-    return guide;
+    return guide_;
 }
 
 void Recipe::setGuide(const QString &value)
 {
-    guide = value;
+    guide_ = value;
 }
 
 QString Recipe::getCategory() const
 {
-    return category;
+    return category_;
 }
 
 void Recipe::setCategory(const QString &value)
 {
-    category = value;
+    category_ = value;
 }
 
 float Recipe::getCost() const
 {
-    return cost;
+    return cost_;
 }
 
 int Recipe::getStars() const
 {
-    return stars;
+    return stars_;
 }
 
 void Recipe::setCost(float value)
 {
-    cost = value;
+    cost_ = value;
 }
 
 void Recipe::setCost(QString value)
@@ -103,10 +105,10 @@ void Recipe::setCost(QString value)
         return;
     }
     value.replace(",",".");
-    cost = value.simplified().toFloat();
+    cost_ = value.simplified().toFloat();
 }
 
 void Recipe::setStars(int value)
 {
-    stars = value;
+    stars_ = value;
 }

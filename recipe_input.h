@@ -37,8 +37,8 @@ private slots:
 
 private:
     Ui::Recipe_input *ui;
-    QStringListModel *model;
-    Recipe *recipe;
+    QStringListModel *model_;
+    Recipe *recipe_;
 };
 
 #endif // RECIPE_OINPUT_H

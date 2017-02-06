@@ -17,12 +17,11 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
-
     void on_pushButton_clicked();
 
 private:
     Ui::Filter *ui;
-    QString *input;
+    QString *input_;
 };
 
 #endif // FILTER_H

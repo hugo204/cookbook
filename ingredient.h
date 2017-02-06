@@ -23,9 +23,9 @@ signals:
 public slots:
 
 private:
-    float cost;
-    int calories;
-    QList<Recipe *> recipeList;
+    float cost_;
+    int calories_;
+    QList<Recipe *> recipeList_;
 };
 
 #endif // INGREDIENT_H

@@ -12,7 +12,7 @@ Filter::Filter(QWidget *parent, QString * userInput) :
     foreach(QString category, mainwindow->get_categoryList()) {
         ui->comboBox->addItem(category);
     }
-    input =  userInput;
+    input_ =  userInput;
 }
 
 Filter::~Filter()
@@ -22,11 +22,11 @@ Filter::~Filter()
 
 void Filter::on_buttonBox_accepted()
 {
-    *input = ui->comboBox->currentText();
+    *input_ = ui->comboBox->currentText();
 }
 
 void Filter::on_pushButton_clicked()
 {
-    *input = "";
+    *input_ = "";
     this->reject();
 }

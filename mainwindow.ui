@@ -21,74 +21,102 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPushButton" name="add_pushButton">
-        <property name="styleSheet">
-         <string notr="true">Text-align:left</string>
-        </property>
-        <property name="text">
-         <string>Neu</string>
-        </property>
-        <property name="icon">
-         <iconset resource="myres.qrc">
-          <normaloff>:/icons/icons/thin-0001_compose_write_pencil_new.png</normaloff>:/icons/icons/thin-0001_compose_write_pencil_new.png</iconset>
-        </property>
-        <property name="shortcut">
-         <string>+</string>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="edit_pushButton">
-        <property name="styleSheet">
-         <string notr="true">Text-align:left</string>
-        </property>
-        <property name="text">
-         <string>Editieren</string>
-        </property>
-        <property name="icon">
-         <iconset resource="myres.qrc">
-          <normaloff>:/icons/icons/thin-0002_write_pencil_new_edit.png</normaloff>:/icons/icons/thin-0002_write_pencil_new_edit.png</iconset>
-        </property>
-        <property name="shortcut">
-         <string>Return</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="delete_pushButton">
-        <property name="styleSheet">
-         <string notr="true">Text-align:left</string>
-        </property>
-        <property name="text">
-         <string>Löschen</string>
-        </property>
-        <property name="icon">
-         <iconset resource="myres.qrc">
-          <normaloff>:/icons/icons/thin-0056_bin_trash_recycle_delete_garbage_empty.png</normaloff>:/icons/icons/thin-0056_bin_trash_recycle_delete_garbage_empty.png</iconset>
-        </property>
-        <property name="shortcut">
-         <string>Del</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QPushButton" name="add_pushButton">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>40</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="icon">
+           <iconset resource="myres.qrc">
+            <normaloff>:/icons/icons/thin-0001_compose_write_pencil_new.png</normaloff>:/icons/icons/thin-0001_compose_write_pencil_new.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="shortcut">
+           <string>+</string>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="edit_pushButton">
+          <property name="minimumSize">
+           <size>
+            <width>40</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="icon">
+           <iconset resource="myres.qrc">
+            <normaloff>:/icons/icons/thin-0002_write_pencil_new_edit.png</normaloff>:/icons/icons/thin-0002_write_pencil_new_edit.png</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Return</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="delete_pushButton">
+          <property name="minimumSize">
+           <size>
+            <width>40</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="icon">
+           <iconset resource="myres.qrc">
+            <normaloff>:/icons/icons/thin-0056_bin_trash_recycle_delete_garbage_empty.png</normaloff>:/icons/icons/thin-0056_bin_trash_recycle_delete_garbage_empty.png</iconset>
+          </property>
+          <property name="shortcut">
+           <string>Del</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>40</height>
+          <height>20</height>
          </size>
         </property>
        </spacer>
@@ -97,11 +125,14 @@
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QPushButton" name="pushButton_3">
-          <property name="styleSheet">
-           <string notr="true">Text-align:left</string>
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
           </property>
-          <property name="text">
-           <string>Filter</string>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <property name="icon">
            <iconset resource="myres.qrc">
@@ -114,11 +145,14 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_2">
-          <property name="styleSheet">
-           <string notr="true">Text-align:left</string>
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
           </property>
-          <property name="text">
-           <string>Sortieren</string>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <property name="icon">
            <iconset resource="myres.qrc">
@@ -133,12 +167,28 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="styleSheet">
-           <string notr="true">Text-align:left</string>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
           </property>
-          <property name="text">
-           <string>Kalender</string>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
           <property name="icon">
            <iconset resource="myres.qrc">
@@ -266,7 +316,4 @@
   <include location="myres.qrc"/>
  </resources>
  <connections/>
- <buttongroups>
-  <buttongroup name="buttonGroup"/>
- </buttongroups>
 </ui>

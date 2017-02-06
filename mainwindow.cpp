@@ -473,12 +473,12 @@ void MainWindow::apply_filter()
             if(i.value()->getCategory() == *filter_) {
                 ui->listWidget->insertItem(0, i.key());
             }
-            MainWindow::sort_cookbook();
-            if(!filter_activated_icon_) {
-                filter_activated_icon_ = new QIcon(":/icons/icons/thin-0041_filter_funnel_active.png");
-            }
-            ui->pushButton_3->setIcon(*filter_activated_icon_);
         }
+        MainWindow::sort_cookbook();
+        if(!filter_activated_icon_) {
+            filter_activated_icon_ = new QIcon(":/icons/icons/thin-0041_filter_funnel_active.png");
+        }
+        ui->pushButton_3->setIcon(*filter_activated_icon_);
     }
     else {
         clear_filter();

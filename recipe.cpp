@@ -99,7 +99,7 @@ int Recipe::getStars() const
     return stars_;
 }
 
-void Recipe::setCost(float value)
+void Recipe::setCost(const float value)
 {
     cost_ = value;
 }
@@ -113,7 +113,7 @@ void Recipe::setCost(QString value)
     cost_ = value.simplified().toFloat();
 }
 
-void Recipe::setStars(int value)
+void Recipe::setStars(const int value)
 {
     stars_ = value;
 }

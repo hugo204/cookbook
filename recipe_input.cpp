@@ -8,13 +8,13 @@ Recipe_input::Recipe_input(QWidget *parent, Recipe *recipeFromParent) : QDialog(
     //myParent = parent;
     MainWindow *mainwindow = qobject_cast<MainWindow*>(parent);
     recipe_ = recipeFromParent;
-    ui->lineEdit->setText(recipe_->getTitel());
+    ui->lineEdit_titel->setText(recipe_->getTitel());
     ui->plainTextEdit->insertPlainText(recipe_->getGuide());
     model_ = new QStringListModel(recipe_->getIngredients(), this);
 
     ui->listView->setModel(model_);
     ui->listView->setEditTriggers(QListView::DoubleClicked);
-    ui->lineEdit->setFocus();
+    ui->lineEdit_titel->setFocus();
 
     foreach(QString category, mainwindow->cookbook_.get_categoryList()) {
         ui->comboBox->addItem(category);
@@ -29,7 +29,7 @@ Recipe_input::~Recipe_input()
     // TODO: remove references to ingredient
 }
 
-void Recipe_input::on_toolButton_clicked()
+void Recipe_input::on_toolButton_add_ingredient_clicked()
 {
     // add
     int row = model_->rowCount();
@@ -39,13 +39,13 @@ void Recipe_input::on_toolButton_clicked()
     ui->listView->edit(index);
 }
 
-void Recipe_input::on_toolButton_3_clicked()
+void Recipe_input::on_toolButton_edit_ingredient_clicked()
 {
     // edit
     ui->listView->edit(ui->listView->currentIndex());
 }
 
-void Recipe_input::on_toolButton_2_clicked()
+void Recipe_input::on_toolButton_delete_ingredient_clicked()
 {
     // delete
     model_->removeRow(ui->listView->currentIndex().row());
@@ -73,26 +73,26 @@ void Recipe_input::on_buttonBox_accepted()
     }
     mainwindow->add_recipe_to_ingredient(newIngredients, recipe_);
     recipe_->setGuide(ui->plainTextEdit->toPlainText());
-    recipe_->setTitel(ui->lineEdit->text());
+    recipe_->setTitel(ui->lineEdit_titel->text());
     recipe_->setIngredients(model_->stringList());
     recipe_->setCategory(ui->comboBox->currentText());
     // update ingredients
 }
 
-void Recipe_input::on_lineEdit_textChanged(const QString &arg1)
+void Recipe_input::on_lineEdit_titel_textChanged(const QString &arg1)
 {
     MainWindow *mainwindow = qobject_cast<MainWindow*>(parent());
     if(mainwindow->cookbook_.titel_exists(arg1, recipe_)) {
         ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-        ui->lineEdit->setStyleSheet("QLineEdit{background: rgb(255,130,130);}");
+        ui->lineEdit_titel->setStyleSheet("QLineEdit{background: rgb(255,130,130);}");
     }
     else {
        ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-       ui->lineEdit->setStyleSheet("QLineEdit{background: white;}");
+       ui->lineEdit_titel->setStyleSheet("QLineEdit{background: white;}");
     }
 }
 
-void Recipe_input::on_toolButton_4_clicked()
+void Recipe_input::on_toolButton_add_category_clicked()
 {
     bool ok;
     QString text = QInputDialog::getText(this, tr("Kategorie hinzufügen"),

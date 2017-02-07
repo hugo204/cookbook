@@ -8,17 +8,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    sortOrder_des_icon_ = NULL;
-    sortOrder_asc_icon_ = NULL;
+    sort_descending_icon_ = NULL;
+    sort_ascending_icon_ = NULL;
     filter_activated_icon_ = NULL;
     filter_deactivated_icon_ = NULL;
 
     // enable drag and drop of list element
     ui->listWidget->setDragDropMode(QAbstractItemView::InternalMove);
     this->setWindowTitle(tr("New File"));
-    ui->actionNew->setEnabled(false);
-    ui->actionSave->setEnabled(false);
-    ui->actionFind->setEnabled(false);
+    ui->action_new->setEnabled(false);
+    ui->action_save->setEnabled(false);
+    ui->action_find->setEnabled(false);
     sortorder_ = SortOrder::AscendingOrder;
     cookbook_.add_category("Vorspeise");
     cookbook_.add_category("Hauptgericht");
@@ -39,32 +39,32 @@ void MainWindow::control_toolbar(MainWindow::action action_performed)
 {
     switch(action_performed) {
     case item_new:
-        ui->actionNew->setEnabled(true);
-        ui->actionSave->setEnabled(true);
-        ui->actionFind->setEnabled(true);
+        ui->action_new->setEnabled(true);
+        ui->action_save->setEnabled(true);
+        ui->action_find->setEnabled(true);
         break;
     case item_edit:
-        ui->actionSave->setEnabled(true);
+        ui->action_save->setEnabled(true);
         break;
     case item_delete:
         if(ui->listWidget->count() == 0) {
-            ui->actionFind->setEnabled(false);
+            ui->action_find->setEnabled(false);
         }
-        ui->actionSave->setEnabled(true);
+        ui->action_save->setEnabled(true);
         break;
     case document_new:
-        ui->actionNew->setEnabled(false);
-        ui->actionFind->setEnabled(false);
-        ui->actionSave->setEnabled(false);
+        ui->action_new->setEnabled(false);
+        ui->action_find->setEnabled(false);
+        ui->action_save->setEnabled(false);
         break;
     case document_save:
-         ui->actionSave->setEnabled(false);
+         ui->action_save->setEnabled(false);
         break;
     case document_load:
-        ui->actionNew->setEnabled(true);
-        ui->actionSave->setEnabled(false);
+        ui->action_new->setEnabled(true);
+        ui->action_save->setEnabled(false);
         if(ui->listWidget->count() > 0) {
-            ui->actionFind->setEnabled(true);
+            ui->action_find->setEnabled(true);
         }
         break;
     }
@@ -100,7 +100,7 @@ void MainWindow::delete_recipe_from_ingredient(QStringList deletedIngredients, R
     }
 }
 
-void MainWindow::on_add_pushButton_clicked()
+void MainWindow::on_pushButton_add_clicked()
 {
     //window_return_value = dish_input_window->exec();
     Recipe *recipe = new Recipe;
@@ -124,7 +124,7 @@ void MainWindow::on_add_pushButton_clicked()
     }
 }
 
-void MainWindow::on_delete_pushButton_clicked()
+void MainWindow::on_pushButton_delete_clicked()
 {
     //delete_item
     QListWidgetItem *current_item = ui->listWidget->currentItem();
@@ -152,7 +152,7 @@ void MainWindow::on_delete_pushButton_clicked()
     }
 }
 
-void MainWindow::on_edit_pushButton_clicked()
+void MainWindow::on_pushButton_edit_clicked()
 {
     //edit_item
     edit_recipe();
@@ -191,7 +191,7 @@ void MainWindow::edit_recipe(Recipe * recipe) {
     delete recipe_copy;
 }
 
-void MainWindow::on_calendarButton_clicked()
+void MainWindow::on_pushButton_calendar_clicked()
 {
     //show
     QHashIterator<QString, Ingredient *> i(ingredients_);
@@ -206,7 +206,7 @@ void MainWindow::on_calendarButton_clicked()
     }
 }
 
-void MainWindow::on_actionNew_triggered()
+void MainWindow::on_action_new_triggered()
 {
     //new_document
     ui->listWidget->clear();
@@ -238,10 +238,10 @@ void MainWindow::on_actionNew_triggered()
     ui->statusBar->showMessage(tr("new document"), 10000);
 }
 
-bool MainWindow::on_actionOpen_triggered()
+bool MainWindow::on_action_open_triggered()
 {
     //open
-    MainWindow::on_actionNew_triggered();
+    MainWindow::on_action_new_triggered();
     ui->statusBar->showMessage(tr(""), 1);
     this->setWindowTitle("");
     fileName_ = QFileDialog::getOpenFileName(this, tr("Open Cookbook"), QDir::homePath(), tr("Cookbook (*.json)"));
@@ -263,7 +263,7 @@ bool MainWindow::on_actionOpen_triggered()
     return true;
 }
 
-bool MainWindow::on_actionSave_triggered()
+bool MainWindow::on_action_save_triggered()
 {
     //save
     if(fileName_.isEmpty()) {
@@ -281,7 +281,7 @@ bool MainWindow::on_actionSave_triggered()
     return false;
 }
 
-bool MainWindow::on_actionSave_as_triggered()
+bool MainWindow::on_action_save_as_triggered()
 {
     //save
     QString fileNameBackup = fileName_;
@@ -305,7 +305,7 @@ bool MainWindow::on_actionSave_as_triggered()
     return false;
 }
 
-void MainWindow::on_actionFind_triggered()
+void MainWindow::on_action_find_triggered()
 {
     //search //find
     if(cookbook_.count() < 1) {
@@ -339,25 +339,25 @@ void MainWindow::on_actionFind_triggered()
     }
 }
 
-void MainWindow::on_sortButton_clicked()
+void MainWindow::on_pushButton_sort_clicked()
 {
     //sort_order
     if(sortorder_ == SortOrder::DescendingOrder)
     {
        sortorder_ = SortOrder::AscendingOrder;
        MainWindow::sort_listWidget();
-       if(!sortOrder_asc_icon_) {
-           sortOrder_asc_icon_ = new QIcon(":/icons/icons/thin-0572_down.png");
+       if(!sort_ascending_icon_) {
+           sort_ascending_icon_ = new QIcon(":/icons/icons/thin-0572_down.png");
        }
-       ui->sortButton->setIcon(*sortOrder_asc_icon_);
+       ui->pushButton_sort->setIcon(*sort_ascending_icon_);
     }
     else {
        sortorder_ = SortOrder::DescendingOrder;
        MainWindow::sort_listWidget();
-       if(!sortOrder_des_icon_) {
-           sortOrder_des_icon_ = new QIcon(":/icons/icons/thin-0573_up.png");
+       if(!sort_descending_icon_) {
+           sort_descending_icon_ = new QIcon(":/icons/icons/thin-0573_up.png");
        }
-       ui->sortButton->setIcon(*sortOrder_des_icon_);
+       ui->pushButton_sort->setIcon(*sort_descending_icon_);
     }
 }
 
@@ -372,7 +372,7 @@ void MainWindow::sort_listWidget()
     }
 }
 
-void MainWindow::on_filterButton_clicked()
+void MainWindow::on_pushButton_filter_clicked()
 {
     //filter
     Filter *filter_input_window = new Filter(this, filter_);
@@ -396,7 +396,7 @@ void MainWindow::apply_filter()
         if(!filter_activated_icon_) {
             filter_activated_icon_ = new QIcon(":/icons/icons/thin-0041_filter_funnel_active.png");
         }
-        ui->filterButton->setIcon(*filter_activated_icon_);
+        ui->pushButton_filter->setIcon(*filter_activated_icon_);
     }
     else {
         clear_filter();
@@ -416,5 +416,5 @@ void MainWindow::clear_filter()
     if(!filter_deactivated_icon_) {
         filter_deactivated_icon_ = new QIcon(":/icons/icons/thin-0041_filter_funnel.png");
     }
-    ui->filterButton->setIcon(*filter_deactivated_icon_);
+    ui->pushButton_filter->setIcon(*filter_deactivated_icon_);
 }

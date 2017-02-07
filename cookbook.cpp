@@ -4,7 +4,7 @@
 Cookbook::Cookbook() {
 }
 
-bool Cookbook::titel_exists(QString newTitel, Recipe * recipe)
+bool Cookbook::titel_exists(const QString newTitel, Recipe * const recipe)
 {
     if(this->contains(newTitel.simplified())) {
         if(!(this->value(newTitel) == recipe)){
@@ -36,7 +36,7 @@ QStringList Cookbook::get_categoryList()
     return categoryList_;
 }
 
-bool Cookbook::open(QString fileName) {
+bool Cookbook::open(const QString fileName) {
     if(fileName.isEmpty()){
         return false;
     }
@@ -73,7 +73,7 @@ bool Cookbook::open(QString fileName) {
     return true;
 }
 
-bool Cookbook::save(QString fileName)
+bool Cookbook::save(QString const fileName)
 {
     //save
     if(fileName.isEmpty()) {

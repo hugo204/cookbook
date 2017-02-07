@@ -37,7 +37,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="add_pushButton">
+           <widget class="QPushButton" name="pushButton_add">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -78,7 +78,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="edit_pushButton">
+           <widget class="QPushButton" name="pushButton_edit">
             <property name="minimumSize">
              <size>
               <width>40</width>
@@ -98,7 +98,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="delete_pushButton">
+           <widget class="QPushButton" name="pushButton_delete">
             <property name="minimumSize">
              <size>
               <width>40</width>
@@ -135,7 +135,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QPushButton" name="filterButton">
+           <widget class="QPushButton" name="pushButton_filter">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -155,7 +155,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="sortButton">
+           <widget class="QPushButton" name="pushButton_sort">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -191,7 +191,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="calendarButton">
+           <widget class="QPushButton" name="pushButton_calendar">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -235,16 +235,16 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionNew"/>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
-    <addaction name="actionSave_as"/>
+    <addaction name="action_new"/>
+    <addaction name="action_open"/>
+    <addaction name="action_save"/>
+    <addaction name="action_save_as"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
      <string>Edit</string>
     </property>
-    <addaction name="actionFind"/>
+    <addaction name="action_find"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -262,12 +262,12 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionNew"/>
-   <addaction name="actionSave"/>
-   <addaction name="actionOpen"/>
-   <addaction name="actionFind"/>
+   <addaction name="action_new"/>
+   <addaction name="action_save"/>
+   <addaction name="action_open"/>
+   <addaction name="action_find"/>
   </widget>
-  <action name="actionSave">
+  <action name="action_save">
    <property name="icon">
     <iconset resource="myres.qrc">
      <normaloff>:/icons/icons/thin-0336_disc_floppy_save_software.png</normaloff>:/icons/icons/thin-0336_disc_floppy_save_software.png</iconset>
@@ -279,7 +279,7 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actionOpen">
+  <action name="action_open">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -297,7 +297,7 @@
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="actionNew">
+  <action name="action_new">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -315,7 +315,7 @@
     <bool>false</bool>
    </property>
   </action>
-  <action name="actionFind">
+  <action name="action_find">
    <property name="icon">
     <iconset resource="myres.qrc">
      <normaloff>:/icons/icons/thin-0085_file_search_find_replace_zoom_view.png</normaloff>:/icons/icons/thin-0085_file_search_find_replace_zoom_view.png</iconset>
@@ -327,7 +327,7 @@
     <string>Ctrl+F</string>
    </property>
   </action>
-  <action name="actionSave_as">
+  <action name="action_save_as">
    <property name="text">
     <string>Speichern unter..</string>
    </property>

@@ -30,11 +30,11 @@ public:
     void setCategory(const int &value);
 
     float getCost() const;
-    void setCost(float value);
+    void setCost(const float value);
     void setCost(QString value);
 
     int getStars() const;
-    void setStars(int value);
+    void setStars(const int value);
 
 private:
     QString titel_;

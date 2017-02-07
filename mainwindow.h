@@ -29,18 +29,19 @@ public:
     Cookbook cookbook_;
 
 private slots:
-    void on_add_pushButton_clicked();
-    void on_delete_pushButton_clicked();
-    bool on_actionOpen_triggered();
-    bool on_actionSave_triggered();
-    void on_edit_pushButton_clicked();
-    void on_actionNew_triggered();
+
+    bool on_action_open_triggered();
+    bool on_action_save_triggered();
+    void on_action_new_triggered();
+    void on_action_find_triggered();
+    bool on_action_save_as_triggered();
+    void on_pushButton_add_clicked();
+    void on_pushButton_edit_clicked();
+    void on_pushButton_delete_clicked();
+    void on_pushButton_calendar_clicked();
+    void on_pushButton_sort_clicked();
+    void on_pushButton_filter_clicked();
     void on_listWidget_doubleClicked(const QModelIndex &index);
-    void on_actionFind_triggered();
-    bool on_actionSave_as_triggered();
-    void on_calendarButton_clicked();
-    void on_sortButton_clicked();
-    void on_filterButton_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -48,8 +49,8 @@ private:
     QString dish_;
     QString fileName_;
     QString *filter_;
-    QIcon * sortOrder_des_icon_;
-    QIcon * sortOrder_asc_icon_;
+    QIcon * sort_descending_icon_;
+    QIcon * sort_ascending_icon_;
     QIcon * filter_activated_icon_;
     QIcon * filter_deactivated_icon_;
     enum SortOrder {

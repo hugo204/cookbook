@@ -10,12 +10,12 @@ class Cookbook : public QObject, public QHash<QString, Recipe *>
     Q_OBJECT;
 public:    
     Cookbook();
-     bool titel_exists(QString, Recipe *recipe = 0);
-     bool add_category(QString const category);
+     bool titel_exists(const QString newTitel, Recipe * const recipe = 0);
+     bool add_category(const QString category);
      void clear_categoryList();
      QStringList get_categoryList();
-     bool save(QString fileName);
-     bool open(QString fileName);
+     bool save(const QString fileName);
+     bool open(const QString fileName);
 private:
      QStringList categoryList_;
 };

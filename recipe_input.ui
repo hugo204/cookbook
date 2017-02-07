@@ -17,44 +17,43 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QLineEdit" name="lineEdit_titel"/>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item alignment="Qt::AlignRight|Qt::AlignTop">
+        <widget class="QLabel" name="label_3">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">qproperty-alignment: AlignCenter;</string>
+         </property>
+         <property name="text">
+          <string>Titel</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_titel"/>
+       </item>
+      </layout>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QLabel" name="label">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+        <widget class="QLabel" name="label_4">
          <property name="minimumSize">
           <size>
            <width>60</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>168</width>
-           <height>16</height>
-          </size>
-         </property>
-         <property name="sizeIncrement">
-          <size>
-           <width>0</width>
            <height>0</height>
           </size>
          </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
+         <property name="styleSheet">
+          <string notr="true">qproperty-alignment: AlignCenter;</string>
          </property>
          <property name="text">
           <string>Kategorie</string>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
          </property>
         </widget>
        </item>
@@ -62,16 +61,22 @@
         <widget class="QComboBox" name="comboBox">
          <property name="minimumSize">
           <size>
-           <width>280</width>
+           <width>260</width>
            <height>0</height>
           </size>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_add_category">
+        <widget class="QPushButton" name="pushButton_add_category">
+         <property name="minimumSize">
+          <size>
+           <width>62</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="text">
-          <string>...</string>
+          <string/>
          </property>
          <property name="icon">
           <iconset resource="myres.qrc">
@@ -82,14 +87,46 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
+      <layout class="QVBoxLayout" name="verticalLayout_4"/>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item alignment="Qt::AlignTop">
+        <widget class="QLabel" name="label">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">qproperty-alignment: AlignCenter;</string>
+         </property>
+         <property name="text">
+          <string>Zutaten</string>
+         </property>
+        </widget>
+       </item>
        <item>
-        <widget class="QListView" name="listView"/>
+        <widget class="QListView" name="listView">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>250</width>
+           <height>0</height>
+          </size>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QToolButton" name="toolButton_add_ingredient">
+          <widget class="QPushButton" name="pushButton_add_ingredient">
            <property name="text">
             <string/>
            </property>
@@ -103,7 +140,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton_edit_ingredient">
+          <widget class="QPushButton" name="pushButton_edit_ingredient">
            <property name="text">
             <string/>
            </property>
@@ -130,9 +167,9 @@
           </spacer>
          </item>
          <item>
-          <widget class="QToolButton" name="toolButton_delete_ingredient">
+          <widget class="QPushButton" name="pushButton_delete_ingredient">
            <property name="text">
-            <string>delete</string>
+            <string/>
            </property>
            <property name="icon">
             <iconset resource="myres.qrc">
@@ -148,7 +185,27 @@
       </layout>
      </item>
      <item>
-      <widget class="QPlainTextEdit" name="plainTextEdit"/>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item alignment="Qt::AlignRight|Qt::AlignTop">
+        <widget class="QLabel" name="label_2">
+         <property name="minimumSize">
+          <size>
+           <width>60</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">qproperty-alignment: AlignCenter;</string>
+         </property>
+         <property name="text">
+          <string>Anleitung</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="plainTextEdit"/>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -164,14 +221,6 @@
    </item>
   </layout>
  </widget>
- <tabstops>
-  <tabstop>lineEdit_titel</tabstop>
-  <tabstop>listView</tabstop>
-  <tabstop>toolButton_add_ingredient</tabstop>
-  <tabstop>toolButton_edit_ingredient</tabstop>
-  <tabstop>toolButton_delete_ingredient</tabstop>
-  <tabstop>plainTextEdit</tabstop>
- </tabstops>
  <resources>
   <include location="myres.qrc"/>
  </resources>

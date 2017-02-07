@@ -46,7 +46,6 @@ bool Cookbook::open(QString fileName) {
         return false;
     }
     QByteArray loadData = openFile.readAll();
-    qDebug() << loadData;
     QJsonDocument loadDoc(QJsonDocument::fromJson(loadData));
 
     QString titel;

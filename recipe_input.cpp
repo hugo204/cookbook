@@ -53,10 +53,7 @@ void Recipe_input::on_toolButton_2_clicked()
 
 void Recipe_input::on_buttonBox_accepted()
 {
-    qDebug() << "#2";
     MainWindow *mainwindow = qobject_cast<MainWindow*>(parent());
-    qDebug() << "#2.1";
-    qDebug() << recipe_->getIngredients().isEmpty();
     // find the ingredients which were deleted by the user
     QStringList ingredientsToDelete;
     if(!recipe_->getIngredients().isEmpty()) {
@@ -67,7 +64,6 @@ void Recipe_input::on_buttonBox_accepted()
         }
         mainwindow->delete_recipe_from_ingredient(ingredientsToDelete, recipe_);
     }
-    qDebug() << "#3";
     // find the ingredients which were added by the user
     QStringList newIngredients;
     foreach(QString item, model_->stringList()) {
@@ -76,12 +72,10 @@ void Recipe_input::on_buttonBox_accepted()
         }
     }
     mainwindow->add_recipe_to_ingredient(newIngredients, recipe_);
-    qDebug() << "#4";
     recipe_->setGuide(ui->plainTextEdit->toPlainText());
     recipe_->setTitel(ui->lineEdit->text());
     recipe_->setIngredients(model_->stringList());
     recipe_->setCategory(ui->comboBox->currentText());
-    qDebug() << "#5";
     // update ingredients
 }
 

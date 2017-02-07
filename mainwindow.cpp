@@ -118,7 +118,6 @@ void MainWindow::on_add_pushButton_clicked()
             MainWindow::sort_listWidget();
         }
         else {
-            qDebug() << "rejected !";
             delete recipe;
         }
         delete recipe_input;
@@ -140,7 +139,6 @@ void MainWindow::on_delete_pushButton_clicked()
                                   message,
                                   QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
     if (reply == QMessageBox::Yes) {
-        qDebug() << "items removed: ";
         MainWindow::delete_recipe_from_ingredient(cookbook_.take(current_item->text())->getIngredients(), cookbook_.take(current_item->text()));
         delete cookbook_.take(current_item->text());
         ui->listWidget->takeItem(ui->listWidget->row(current_item));
@@ -172,7 +170,6 @@ void MainWindow::edit_recipe(Recipe * recipe) {
         return;
     }
     if(recipe == NULL) {
-        qDebug() << "a1";
         recipe = cookbook_.value(current_item->text());
     }
     Recipe_input *recipe_input = new Recipe_input(this, recipe);
@@ -221,7 +218,6 @@ void MainWindow::on_actionNew_triggered()
         delete i.value();
     }
     cookbook_.clear();
-    qDebug() << cookbook_.count();
 
     QHashIterator<QString, Ingredient *> j(ingredients_);
     while(j.hasNext()) {
@@ -229,7 +225,6 @@ void MainWindow::on_actionNew_triggered()
         delete j.value();
     }
     ingredients_.clear();
-    qDebug() << ingredients_.count();
     cookbook_.clear_categoryList();
     cookbook_.add_category("Vorspeise");
     cookbook_.add_category("Hauptgericht");

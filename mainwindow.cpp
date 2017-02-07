@@ -124,34 +124,6 @@ void MainWindow::on_pushButton_add_clicked()
     }
 }
 
-void MainWindow::on_pushButton_delete_clicked()
-{
-    //delete_item
-    QListWidgetItem *current_item = ui->listWidget->currentItem();
-
-    if(!current_item) {
-        return;
-    }
-
-    QMessageBox::StandardButton reply;
-    QString message = "Do you want to delete " + current_item->text() + "?";
-    reply = QMessageBox::question(this, tr("QMessageBox::question()"),
-                                  message,
-                                  QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
-    if (reply == QMessageBox::Yes) {
-        MainWindow::delete_recipe_from_ingredient(cookbook_.take(current_item->text())->getIngredients(), cookbook_.take(current_item->text()));
-        delete cookbook_.take(current_item->text());
-        ui->listWidget->takeItem(ui->listWidget->row(current_item));
-        ui->statusBar->showMessage(current_item->text() + " " + tr("deleted"), 10000);
-        delete current_item;
-        MainWindow::control_toolbar(MainWindow::item_delete);
-    }
-    else if (reply == QMessageBox::No){
-    }
-    else{
-    }
-}
-
 void MainWindow::on_pushButton_edit_clicked()
 {
     //edit_item
@@ -189,6 +161,34 @@ void MainWindow::edit_recipe(Recipe * recipe) {
     ui->listWidget->setFocus();
     delete recipe_input;
     delete recipe_copy;
+}
+
+void MainWindow::on_pushButton_delete_clicked()
+{
+    //delete_item
+    QListWidgetItem *current_item = ui->listWidget->currentItem();
+
+    if(!current_item) {
+        return;
+    }
+
+    QMessageBox::StandardButton reply;
+    QString message = "Do you want to delete " + current_item->text() + "?";
+    reply = QMessageBox::question(this, tr("QMessageBox::question()"),
+                                  message,
+                                  QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+    if (reply == QMessageBox::Yes) {
+        MainWindow::delete_recipe_from_ingredient(cookbook_.take(current_item->text())->getIngredients(), cookbook_.take(current_item->text()));
+        delete cookbook_.take(current_item->text());
+        ui->listWidget->takeItem(ui->listWidget->row(current_item));
+        ui->statusBar->showMessage(current_item->text() + " " + tr("deleted"), 10000);
+        delete current_item;
+        MainWindow::control_toolbar(MainWindow::item_delete);
+    }
+    else if (reply == QMessageBox::No){
+    }
+    else{
+    }
 }
 
 void MainWindow::on_pushButton_calendar_clicked()

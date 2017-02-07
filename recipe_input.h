@@ -28,11 +28,10 @@ public:
 
 private slots:
     void on_toolButton_add_category_clicked();
-
     void on_buttonBox_accepted();
-    void on_toolButton_add_ingredient_clicked();
-    void on_toolButton_edit_ingredient_clicked();
-    void on_toolButton_delete_ingredient_clicked();
+    void on_pushButton_add_ingredient_clicked();
+    void on_pushButton_edit_ingredient_clicked();
+    void on_pushButton_delete_ingredient_clicked();
     void on_lineEdit_titel_textChanged(const QString &arg1);
 
 

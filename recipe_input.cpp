@@ -29,7 +29,7 @@ Recipe_input::~Recipe_input()
     // TODO: remove references to ingredient
 }
 
-void Recipe_input::on_toolButton_add_ingredient_clicked()
+void Recipe_input::on_pushButton_add_ingredient_clicked()
 {
     // add
     int row = model_->rowCount();
@@ -39,13 +39,13 @@ void Recipe_input::on_toolButton_add_ingredient_clicked()
     ui->listView->edit(index);
 }
 
-void Recipe_input::on_toolButton_edit_ingredient_clicked()
+void Recipe_input::on_pushButton_edit_ingredient_clicked()
 {
     // edit
     ui->listView->edit(ui->listView->currentIndex());
 }
 
-void Recipe_input::on_toolButton_delete_ingredient_clicked()
+void Recipe_input::on_pushButton_delete_ingredient_clicked()
 {
     // delete
     model_->removeRow(ui->listView->currentIndex().row());

@@ -135,7 +135,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="filterButton">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -155,7 +155,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="sortButton">
             <property name="minimumSize">
              <size>
               <width>50</width>
@@ -191,7 +191,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="calendarButton">
             <property name="minimumSize">
              <size>
               <width>50</width>

@@ -34,13 +34,13 @@ private slots:
     bool on_actionOpen_triggered();
     bool on_actionSave_triggered();
     void on_edit_pushButton_clicked();
-    void on_pushButton_clicked();
     void on_actionNew_triggered();
     void on_listWidget_doubleClicked(const QModelIndex &index);
     void on_actionFind_triggered();
     bool on_actionSave_as_triggered();
-    void on_pushButton_2_clicked();
-    void on_pushButton_3_clicked();
+    void on_calendarButton_clicked();
+    void on_sortButton_clicked();
+    void on_filterButton_clicked();
 
 private:
     Ui::MainWindow *ui;

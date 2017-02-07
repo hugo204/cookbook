@@ -191,7 +191,7 @@ void MainWindow::edit_recipe(Recipe * recipe) {
     delete recipe_copy;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_calendarButton_clicked()
 {
     //show
     QHashIterator<QString, Ingredient *> i(ingredients_);
@@ -339,7 +339,7 @@ void MainWindow::on_actionFind_triggered()
     }
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_sortButton_clicked()
 {
     //sort_order
     if(sortorder_ == SortOrder::DescendingOrder)
@@ -349,7 +349,7 @@ void MainWindow::on_pushButton_2_clicked()
        if(!sortOrder_asc_icon_) {
            sortOrder_asc_icon_ = new QIcon(":/icons/icons/thin-0572_down.png");
        }
-       ui->pushButton_2->setIcon(*sortOrder_asc_icon_);
+       ui->sortButton->setIcon(*sortOrder_asc_icon_);
     }
     else {
        sortorder_ = SortOrder::DescendingOrder;
@@ -357,7 +357,7 @@ void MainWindow::on_pushButton_2_clicked()
        if(!sortOrder_des_icon_) {
            sortOrder_des_icon_ = new QIcon(":/icons/icons/thin-0573_up.png");
        }
-       ui->pushButton_2->setIcon(*sortOrder_des_icon_);
+       ui->sortButton->setIcon(*sortOrder_des_icon_);
     }
 }
 
@@ -372,7 +372,7 @@ void MainWindow::sort_listWidget()
     }
 }
 
-void MainWindow::on_pushButton_3_clicked()
+void MainWindow::on_filterButton_clicked()
 {
     //filter
     Filter *filter_input_window = new Filter(this, filter_);
@@ -396,7 +396,7 @@ void MainWindow::apply_filter()
         if(!filter_activated_icon_) {
             filter_activated_icon_ = new QIcon(":/icons/icons/thin-0041_filter_funnel_active.png");
         }
-        ui->pushButton_3->setIcon(*filter_activated_icon_);
+        ui->filterButton->setIcon(*filter_activated_icon_);
     }
     else {
         clear_filter();
@@ -416,5 +416,5 @@ void MainWindow::clear_filter()
     if(!filter_deactivated_icon_) {
         filter_deactivated_icon_ = new QIcon(":/icons/icons/thin-0041_filter_funnel.png");
     }
-    ui->pushButton_3->setIcon(*filter_deactivated_icon_);
+    ui->filterButton->setIcon(*filter_deactivated_icon_);
 }

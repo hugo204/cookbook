@@ -9,7 +9,7 @@ Filter::Filter(QWidget *parent, QString * userInput) :
 {
     ui->setupUi(this);
     MainWindow *mainwindow = qobject_cast<MainWindow*>(parent);
-    foreach(QString category, mainwindow->get_categoryList()) {
+    foreach(QString category, mainwindow->cookbook_.get_categoryList()) {
         ui->comboBox->addItem(category);
     }
     input_ =  userInput;

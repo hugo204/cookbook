@@ -11,6 +11,7 @@
 #include "recipe_input.h"
 #include "recipe.h"
 #include "ingredient.h"
+#include "cookbook.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,11 +24,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    bool titel_exists(QString, Recipe *recipe = 0);
     void add_recipe_to_ingredient(QStringList newIngredients, Recipe *recipe);
     void delete_recipe_from_ingredient(QStringList deletedIngredients, Recipe *recipe);
-    bool add_category(QString const category);
-    QStringList get_categoryList();
+    Cookbook cookbook_;
 
 private slots:
     void on_add_pushButton_clicked();
@@ -45,9 +44,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QHash<QString, Recipe *> cookbook_;
     QHash<QString, Ingredient *> ingredients_;
-    QStringList categoryList_;
     QString dish_;
     QString fileName_;
     QString *filter_;
@@ -69,9 +66,8 @@ private:
     };
 
     void edit_recipe(Recipe *recipe = 0);
-    void control_toolbar(action actionPerformed);
-    bool save_cookbook();
-    void sort_cookbook();
+    void control_toolbar(action action_performed);
+    void sort_listWidget();
     void clear_filter();
     void apply_filter();
 };

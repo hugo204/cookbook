@@ -2,12 +2,22 @@
 #define COOKBOOK_H
 
 #include <QtCore>
+#include <QHashIterator>
+#include "recipe.h"
 
-class cookbook : QObject
+class Cookbook : public QObject, public QHash<QString, Recipe *>
 {
-public:
     Q_OBJECT;
-    cookbook();
+public:    
+    Cookbook();
+     bool titel_exists(QString, Recipe *recipe = 0);
+     bool add_category(QString const category);
+     void clear_categoryList();
+     QStringList get_categoryList();
+     bool save(QString fileName);
+     bool open(QString fileName);
+private:
+     QStringList categoryList_;
 };
 
 #endif // COOKBOOK_H

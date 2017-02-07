@@ -16,7 +16,7 @@ Recipe_input::Recipe_input(QWidget *parent, Recipe *recipeFromParent) : QDialog(
     ui->listView->setEditTriggers(QListView::DoubleClicked);
     ui->lineEdit->setFocus();
 
-    foreach(QString category, mainwindow->get_categoryList()) {
+    foreach(QString category, mainwindow->cookbook_.get_categoryList()) {
         ui->comboBox->addItem(category);
     }
     ui->comboBox->setCurrentText(recipe_->getCategory());
@@ -88,7 +88,7 @@ void Recipe_input::on_buttonBox_accepted()
 void Recipe_input::on_lineEdit_textChanged(const QString &arg1)
 {
     MainWindow *mainwindow = qobject_cast<MainWindow*>(parent());
-    if(mainwindow->titel_exists(arg1, recipe_)) {
+    if(mainwindow->cookbook_.titel_exists(arg1, recipe_)) {
         ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
         ui->lineEdit->setStyleSheet("QLineEdit{background: rgb(255,130,130);}");
     }
@@ -107,7 +107,7 @@ void Recipe_input::on_toolButton_4_clicked()
     if(ok && !text.isEmpty()) {
         text = text.simplified();
         MainWindow *mainwindow = qobject_cast<MainWindow*>(parent());
-        if(mainwindow->add_category(text) == true) {
+        if(mainwindow->cookbook_.add_category(text) == true) {
             ui->comboBox->addItem(text);
             ui->comboBox->setCurrentText(text);
         }

@@ -20,9 +20,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->actionSave->setEnabled(false);
     ui->actionFind->setEnabled(false);
     sortorder_ = SortOrder::AscendingOrder;
-    categoryList_ << "Vorspeise" << "Hauptgericht" << "Suppe" << "Nachtisch" << "Brot" << "Kuchen";
+    cookbook_.add_category("Vorspeise");
+    cookbook_.add_category("Hauptgericht");
+    cookbook_.add_category("Suppe");
+    cookbook_.add_category("Nachtisch");
+    cookbook_.add_category("Brot");
+    cookbook_.add_category("Kuchen");
     filter_ = new QString;
-    ui->toolBar->hide();
+    ui->toolBar_2->hide();
 }
 
 MainWindow::~MainWindow()
@@ -30,9 +35,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::control_toolbar(MainWindow::action actionPerformed)
+void MainWindow::control_toolbar(MainWindow::action action_performed)
 {
-    switch(actionPerformed) {
+    switch(action_performed) {
     case item_new:
         ui->actionNew->setEnabled(true);
         ui->actionSave->setEnabled(true);
@@ -65,16 +70,6 @@ void MainWindow::control_toolbar(MainWindow::action actionPerformed)
     }
 }
 
-bool MainWindow::titel_exists(QString newTitel, Recipe * recipe)
-{
-    if(cookbook_.contains(newTitel.simplified())) {
-        if(!(cookbook_.value(newTitel) == recipe)){
-            return true;
-        }
-    }
-    return false;
-}
-
 void MainWindow::add_recipe_to_ingredient(QStringList newIngredients, Recipe * recipe) {
     QStringListIterator i(newIngredients);
     while(i.hasNext()) {
@@ -105,23 +100,6 @@ void MainWindow::delete_recipe_from_ingredient(QStringList deletedIngredients, R
     }
 }
 
-bool MainWindow::add_category(const QString newCategory)
-{
-    if(newCategory.isEmpty()) {
-        return false;
-    }
-    if(!categoryList_.contains(newCategory)) {
-        categoryList_ << newCategory;
-        return true;
-    }
-    return false;
-}
-
-QStringList MainWindow::get_categoryList()
-{
-    return categoryList_;
-}
-
 void MainWindow::on_add_pushButton_clicked()
 {
     //window_return_value = dish_input_window->exec();
@@ -137,7 +115,7 @@ void MainWindow::on_add_pushButton_clicked()
             ui->listWidget->setCurrentItem(ui->listWidget->item(0));
             MainWindow::control_toolbar(MainWindow::item_new);
             MainWindow::apply_filter();
-            MainWindow::sort_cookbook();
+            MainWindow::sort_listWidget();
         }
         else {
             qDebug() << "rejected !";
@@ -206,7 +184,7 @@ void MainWindow::edit_recipe(Recipe * recipe) {
         current_item->setText(recipe->getTitel());
         MainWindow::control_toolbar(MainWindow::item_edit);
         MainWindow::apply_filter();
-        MainWindow::sort_cookbook();
+        MainWindow::sort_listWidget();
     }
     else {
         recipe = recipe_copy;
@@ -252,8 +230,13 @@ void MainWindow::on_actionNew_triggered()
     }
     ingredients_.clear();
     qDebug() << ingredients_.count();
-    categoryList_.clear();
-    categoryList_ << "Vorspeise" << "Hauptgericht" << "Suppe" << "Nachtisch" << "Brot" << "Kuchen";
+    cookbook_.clear_categoryList();
+    cookbook_.add_category("Vorspeise");
+    cookbook_.add_category("Hauptgericht");
+    cookbook_.add_category("Suppe");
+    cookbook_.add_category("Nachtisch");
+    cookbook_.add_category("Brot");
+    cookbook_.add_category("Kuchen");
     fileName_.clear();
     MainWindow::clear_filter();
     MainWindow::control_toolbar(MainWindow::document_new);
@@ -270,70 +253,22 @@ bool MainWindow::on_actionOpen_triggered()
     if(fileName_.isEmpty()) {
         return false;
     }
-    qDebug() << fileName_;
-    QFile openFile(fileName_);
-    if(!openFile.open(QIODevice::ReadWrite)) {
-        qDebug() << "Could not open file";
-        return false;
-    }
-    QByteArray loadData = openFile.readAll();
-    qDebug() << loadData;
-    QJsonDocument loadDoc(QJsonDocument::fromJson(loadData));
-
-    QString titel;
-    QStringList ingredients;
-    QString guide;
-    QString category;
-    QJsonObject recipe;
-    QJsonArray jsonIngredientsArray;
-
-    QJsonArray recipeArray = loadDoc.object()["cookbook"].toArray();
-    for(int recipeIndex = 0; recipeIndex < recipeArray.size(); ++recipeIndex) {
-        recipe = recipeArray[recipeIndex].toObject();
-        titel = recipe["titel"].toString();
-        guide = recipe["guide"].toString();
-        category = recipe["category"].toString();
-        MainWindow::add_category(category);
-        jsonIngredientsArray = recipe["ingredients"].toArray();
-        ingredients.clear();
-        foreach(QVariant ing, jsonIngredientsArray.toVariantList()) {
-            ingredients << ing.toString();
+    if(cookbook_.open(fileName_) == true) {
+        MainWindow::clear_filter();
+        QHashIterator<QString, Recipe *> i(cookbook_);
+        while(i.hasNext()) {
+            i.next();
+            MainWindow::add_recipe_to_ingredient(i.value()->getIngredients(), i.value());
         }
-        Recipe * newRecipe = new Recipe(ingredients, titel, guide, category);
-        cookbook_.insert(titel, newRecipe);
-        ui->listWidget->insertItem(cookbook_.count(), titel);
-        MainWindow::add_recipe_to_ingredient(newRecipe->getIngredients(), newRecipe);
+        this->setWindowTitle(fileName_);
+        ui->statusBar->showMessage(tr("document opened"), 10000);
+        MainWindow::control_toolbar(MainWindow::document_load);
+        MainWindow::sort_listWidget();
     }
-    this->setWindowTitle(fileName_);
-    ui->statusBar->showMessage(tr("document opened"), 10000);
-    MainWindow::control_toolbar(MainWindow::document_load);
-    MainWindow::sort_cookbook();
-
     return true;
 }
 
 bool MainWindow::on_actionSave_triggered()
-{
-    //save
-    return save_cookbook();
-}
-
-bool MainWindow::on_actionSave_as_triggered()
-{
-    //save
-    QString fileNameBackup = fileName_;
-    fileName_.clear();
-
-    if(save_cookbook() == false) {
-        fileName_ = fileNameBackup;
-        return false;
-    }
-    else {
-        return true;
-    }
-}
-
-bool MainWindow::save_cookbook()
 {
     //save
     if(fileName_.isEmpty()) {
@@ -344,37 +279,35 @@ bool MainWindow::save_cookbook()
             return false;
         }
     }
-    this->setWindowTitle(fileName_);
-    QFile saveFile(fileName_);
-    if (!saveFile.open(QIODevice::WriteOnly)) {
-        qWarning("Couldn't open save file.");
-        return false;
+    if(cookbook_.save(fileName_) == true) {
+        MainWindow::control_toolbar(MainWindow::document_save);
+        return true;
     }
-    QJsonObject jsonCookBook;
-    QJsonObject jsonRecipe;
-    QJsonArray jsonRecipeArray;
-    QJsonArray ingredients;
+    return false;
+}
 
-    QHashIterator<QString, Recipe *> i(cookbook_);
-    while(i.hasNext()) {
-        i.next();
-        while(!ingredients.isEmpty()) {
-            ingredients.removeFirst();
+bool MainWindow::on_actionSave_as_triggered()
+{
+    //save
+    QString fileNameBackup = fileName_;
+    fileName_.clear();
+    if(fileName_.isEmpty()) {
+        fileName_ = QFileDialog::getSaveFileName(this,
+                                                tr("Save Cookbook"), "",
+                                                tr("Cookbook (*.json);;All Files (*)"));
+        if(!fileName_.isEmpty()) {
+            if(cookbook_.save(fileName_) == false) {
+                fileName_ = fileNameBackup;
+                return false;
+            }
+            else {
+                this->setWindowTitle(fileName_);
+                MainWindow::control_toolbar(MainWindow::document_save);
+                return true;
+            }
         }
-        foreach(QString ingredient, i.value()->getIngredients()) {
-            ingredients.insert(0, ingredient);
-        }
-        jsonRecipe["guide"] = i.value()->getGuide();
-        jsonRecipe["ingredients"] = ingredients;
-        jsonRecipe["category"] = i.value()->getCategory();
-        jsonRecipe["titel"] = i.value()->getTitel();
-        jsonRecipeArray.insert(0, jsonRecipe);
     }
-    jsonCookBook["cookbook"] = jsonRecipeArray;
-    QJsonDocument saveDoc(jsonCookBook);
-    saveFile.write(saveDoc.toJson());
-    MainWindow::control_toolbar(MainWindow::document_save);
-    return true;
+    return false;
 }
 
 void MainWindow::on_actionFind_triggered()
@@ -417,7 +350,7 @@ void MainWindow::on_pushButton_2_clicked()
     if(sortorder_ == SortOrder::DescendingOrder)
     {
        sortorder_ = SortOrder::AscendingOrder;
-       MainWindow::sort_cookbook();
+       MainWindow::sort_listWidget();
        if(!sortOrder_asc_icon_) {
            sortOrder_asc_icon_ = new QIcon(":/icons/icons/thin-0572_down.png");
        }
@@ -425,7 +358,7 @@ void MainWindow::on_pushButton_2_clicked()
     }
     else {
        sortorder_ = SortOrder::DescendingOrder;
-       MainWindow::sort_cookbook();
+       MainWindow::sort_listWidget();
        if(!sortOrder_des_icon_) {
            sortOrder_des_icon_ = new QIcon(":/icons/icons/thin-0573_up.png");
        }
@@ -433,7 +366,7 @@ void MainWindow::on_pushButton_2_clicked()
     }
 }
 
-void MainWindow::sort_cookbook()
+void MainWindow::sort_listWidget()
 {
     if(sortorder_ == SortOrder::DescendingOrder)
     {
@@ -464,7 +397,7 @@ void MainWindow::apply_filter()
                 ui->listWidget->insertItem(0, i.key());
             }
         }
-        MainWindow::sort_cookbook();
+        MainWindow::sort_listWidget();
         if(!filter_activated_icon_) {
             filter_activated_icon_ = new QIcon(":/icons/icons/thin-0041_filter_funnel_active.png");
         }
@@ -484,7 +417,7 @@ void MainWindow::clear_filter()
         i.next();
         ui->listWidget->insertItem(0, i.key());
     }
-    MainWindow::sort_cookbook();
+    MainWindow::sort_listWidget();
     if(!filter_deactivated_icon_) {
         filter_deactivated_icon_ = new QIcon(":/icons/icons/thin-0041_filter_funnel.png");
     }

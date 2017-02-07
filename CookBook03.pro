@@ -28,13 +28,15 @@ SOURCES += main.cpp\
     recipe_input.cpp \
     recipe.cpp \
     ingredient.cpp \
-    filter.cpp
+    filter.cpp \
+    cookbook.cpp
 
 HEADERS  += mainwindow.h \
     recipe_input.h \
     recipe.h \
     ingredient.h \
-    filter.h
+    filter.h \
+    cookbook.h
 
 FORMS    += mainwindow.ui \
     recipe_input.ui \
